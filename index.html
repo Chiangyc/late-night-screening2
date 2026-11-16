@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>深夜放映室｜一個人的觀後感資料庫</title>
+  <meta name="description" content="我的私人觀影手記：每部電影一張票根，記下那天在哪裡、跟誰、吃什麼、邊看邊想到什麼。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="page-home">
+  <header class="marquee">
+    <a class="logo" href="index.html"><span>深夜</span>放映室</a>
+    <nav><a href="CLAUDE.md">規則</a></nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="now-showing">NOW SHOWING</p>
+      <h1>深夜放映室</h1>
+      <p class="lead">我的私人觀影手記。每部電影一張票根，記下那天在哪裡、跟誰、吃了什麼，還有邊看邊寫下的碎碎念。看過的人，再撕開劇透區。</p>
+      <p class="stats" data-stats></p>
+    </section>
+
+    <section class="controls" aria-label="篩選與排序">
+      <input type="search" placeholder="搜尋片名、導演…" data-search aria-label="搜尋">
+      <div class="chips" data-type-chips></div>
+      <div class="chips" data-genre-chips></div>
+      <label class="sort">排序
+        <select data-sort>
+          <option value="date">最近看的</option>
+          <option value="score">評分最高</option>
+          <option value="year">上映年份</option>
+        </select>
+      </label>
+      <p class="active-filter" data-active-filter hidden></p>
+    </section>
+
+    <section class="ticket-grid" data-grid aria-live="polite"></section>
+  </main>
+
+  <footer class="credits">深夜放映室 · 規則見 CLAUDE.md · 不使用任何官方海報，票根色塊就是封面</footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

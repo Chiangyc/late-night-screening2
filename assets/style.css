@@ -1,0 +1,224 @@
+/* 深夜放映室 — 全站唯一樣式（規則見 CLAUDE.md 第 4 節） */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&family=Oswald:wght@400;600&family=LXGW+WenKai+TC:wght@400;700&display=swap");
+
+:root {
+  --night: #0f0d12;
+  --seat: #1c1820;
+  --seat-2: #26212b;
+  --screen: #f4ede1;
+  --dim: #a59bab;
+  --amber: #f2b33d;
+  --red: #e0533f;
+  --line: #3a3340;
+  --paper: #f6efdc;
+  --ink: #2b2a35;
+  --rule: #d9cfb4;
+  --radius: 14px;
+  --serif: "Noto Serif TC", serif;
+  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --num: "Oswald", "Noto Sans TC", sans-serif;
+  --hand: "LXGW WenKai TC", "Kaiti TC", "DFKai-SB", cursive;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--screen); background: var(--night);
+  font: 16px/1.85 var(--sans);
+  background-image: radial-gradient(ellipse 80% 40% at 50% -10%, rgba(242, 179, 61, .14), transparent 70%);
+  background-repeat: no-repeat;
+}
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--serif); line-height: 1.3; margin: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+/* ===== 頂部跑馬燈 ===== */
+.marquee {
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1040px; margin: 0 auto; padding: 1.1rem 1.25rem;
+}
+.logo { font: 900 1.15rem var(--serif); text-decoration: none; letter-spacing: .08em; }
+.logo span { color: var(--amber); }
+.marquee nav a { color: var(--dim); text-decoration: none; font-size: .9rem; margin-left: 1.2rem; }
+.marquee nav a:hover { color: var(--amber); }
+
+/* ===== 首頁 ===== */
+.hero { padding: 3rem 0 2rem; text-align: center; }
+.now-showing {
+  display: inline-block; margin: 0 0 .8rem; padding: .1rem .9rem;
+  font: 600 .8rem var(--num); letter-spacing: .35em; color: var(--night);
+  background: var(--amber); border-radius: 4px;
+}
+.hero h1 { font-size: clamp(2.4rem, 8vw, 4.2rem); font-weight: 900; letter-spacing: .12em; text-shadow: 0 0 30px rgba(242, 179, 61, .35); }
+.lead { color: var(--dim); max-width: 34rem; margin: .8rem auto; }
+.stats { font: 400 .9rem var(--num); letter-spacing: .1em; color: var(--amber); }
+
+.controls { display: flex; flex-wrap: wrap; gap: .8rem 1rem; align-items: center; margin: 1rem 0 2rem; padding: 1rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.controls input[type="search"] {
+  flex: 1 1 220px; font: inherit; color: var(--screen); background: var(--seat);
+  border: 1px solid var(--line); border-radius: 999px; padding: .45rem 1rem;
+}
+.controls input:focus, .controls select:focus, .chips button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chips button {
+  font: 500 .82rem var(--sans); color: var(--dim); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: .2rem .8rem; cursor: pointer;
+}
+.chips button:hover { color: var(--screen); border-color: var(--dim); }
+.chips button[aria-pressed="true"] { color: var(--night); background: var(--amber); border-color: var(--amber); }
+.sort { font-size: .85rem; color: var(--dim); margin-left: auto; }
+.sort select { font: inherit; color: var(--screen); background: var(--seat); border: 1px solid var(--line); border-radius: 8px; padding: .2rem .4rem; margin-left: .3rem; }
+.active-filter { flex-basis: 100%; margin: 0; font-size: .88rem; color: var(--amber); }
+.active-filter a { color: var(--dim); margin-left: .6rem; }
+
+.ticket-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--dim); padding: 3rem 0; }
+
+/* ===== 票根（首頁卡片與作品頁頭共用） ===== */
+.ticket {
+  --h: 30;
+  --tone: hsl(var(--h) 62% 46%);
+  --tone-deep: hsl(var(--h) 55% 22%);
+  position: relative; display: grid; grid-template-columns: 42% 1fr;
+  min-height: 210px; text-decoration: none; border-radius: var(--radius);
+  background: var(--seat); overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+a.ticket:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 14px 30px rgba(0, 0, 0, .45), 0 0 0 1px var(--tone); }
+.ticket::before, .ticket::after { /* 撕線兩端的半圓缺口 */
+  content: ""; position: absolute; left: calc(42% - 11px); width: 22px; height: 22px;
+  border-radius: 50%; background: var(--night); z-index: 2;
+}
+.ticket::before { top: -11px; }
+.ticket::after { bottom: -11px; }
+.stub {
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.2rem 1.3rem; color: #fff;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .06) 0 2px, transparent 2px 14px),
+    linear-gradient(160deg, var(--tone), var(--tone-deep));
+  border-right: 2px dashed rgba(15, 13, 18, .8);
+}
+.stub .kind { position: absolute; top: 1rem; left: 1.3rem; font: 600 .72rem var(--num); letter-spacing: .25em; opacity: .85; }
+.stub h2 { font-size: 1.55rem; font-weight: 900; text-shadow: 0 2px 10px rgba(0, 0, 0, .35); }
+.stub .orig { font-size: .78rem; opacity: .8; margin-top: .2rem; }
+.info { display: flex; flex-direction: column; padding: 1.1rem 1.3rem 1rem 1.5rem; }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 0 .8rem; margin: 0; font-size: .8rem; }
+.meta dt { font: 400 .7rem var(--num); letter-spacing: .15em; color: var(--dim); padding-top: .2rem; }
+.meta dd { margin: 0; }
+.meta.scene { margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed var(--line); }
+.meta.scene dt { color: var(--amber); font-family: var(--sans); font-size: .72rem; letter-spacing: .1em; }
+.pitch { margin: .7rem 0 0; font-size: .92rem; color: var(--screen); flex: 1; }
+.ticket-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: .5rem; margin-top: .6rem; }
+.score-badge { font: 600 2rem/1 var(--num); color: var(--amber); }
+.score-badge small { font-size: .8rem; color: var(--dim); margin-left: .15rem; }
+.moods { display: flex; flex-wrap: wrap; gap: .3rem; justify-content: flex-end; }
+.moods span { font-size: .72rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0 .55rem; }
+.draft-flag { position: absolute; top: .8rem; right: .9rem; font: 600 .7rem var(--num); letter-spacing: .15em; color: var(--night); background: var(--red); padding: 0 .5rem; border-radius: 3px; }
+
+/* ===== 作品頁 ===== */
+.page-work .ticket { min-height: 300px; margin: 1.5rem 0 1.8rem; grid-template-columns: 45% 1fr; }
+.page-work .ticket::before, .page-work .ticket::after { left: calc(45% - 11px); }
+.page-work .stub { padding: 1.8rem 2rem; }
+.page-work .stub h2 { font-size: clamp(2rem, 5vw, 3rem); }
+.page-work .stub .orig { font-size: .95rem; }
+.page-work .info { padding: 1.6rem 2rem 1.4rem 2.2rem; }
+.page-work .meta { font-size: .95rem; gap: .15rem 1rem; }
+.page-work .pitch { font: 700 1.25rem/1.6 var(--serif); margin-top: 1rem; }
+.page-work .score-badge { font-size: 3rem; }
+.meta a { color: var(--amber); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+
+.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+.panel { background: var(--seat); border-radius: var(--radius); padding: 1.4rem 1.6rem; margin-bottom: 1.2rem; }
+.work-grid .panel { margin-bottom: 0; }
+.panel h3, .sec-title {
+  font: 600 .78rem var(--num); letter-spacing: .3em; color: var(--amber); margin: 0 0 .8rem; text-transform: uppercase;
+}
+.panel ul { margin: 0; padding-left: 1.1rem; }
+.panel li { margin: .25rem 0; }
+.fit > div + div { margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px dashed var(--line); }
+.fit [data-sec="不適合誰看"] h3 { color: var(--red); }
+
+.bar-row { display: grid; grid-template-columns: 5.5rem 1fr 1.6rem; align-items: center; gap: .7rem; margin: .45rem 0; font-size: .9rem; }
+.bar { height: 10px; border-radius: 999px; background: var(--seat-2); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--amber), #ffd98a); }
+.bar-row b { font: 600 .95rem var(--num); text-align: right; }
+
+.prose p { margin: 0 0 1em; }
+.prose p:last-child { margin-bottom: 0; }
+
+.memories .sec-title { margin-left: .2rem; }
+.memories ul { list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; counter-reset: m; }
+.memories li {
+  counter-increment: m; position: relative; background: var(--seat); border-radius: var(--radius);
+  padding: 2.4rem 1.2rem 1.2rem; font-size: .93rem; border-top: 3px solid var(--amber);
+}
+.memories li::before { content: "0" counter(m); position: absolute; top: .7rem; left: 1.2rem; font: 600 1.1rem var(--num); color: var(--amber); }
+
+.spoiler { margin-bottom: 1.2rem; border: 2px dashed var(--red); border-radius: var(--radius); background: rgba(224, 83, 63, .06); }
+.spoiler summary {
+  cursor: pointer; list-style: none; padding: 1rem 1.4rem; font-weight: 700; color: var(--red);
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.spoiler summary::-webkit-details-marker { display: none; }
+.spoiler summary::after { content: "撕開 ▾"; font: 600 .8rem var(--num); letter-spacing: .15em; }
+.spoiler[open] summary::after { content: "收起 ▴"; }
+.spoiler .spoiler-body { padding: 0 1.4rem 1.2rem; }
+.spoiler .spoiler-body p { margin: 0 0 1em; }
+
+.related a { color: var(--amber); font-weight: 700; text-decoration: none; }
+.related a:hover { text-decoration: underline; }
+.broken-link { color: var(--dim); text-decoration: line-through; }
+.back { margin-top: 2rem; }
+.back a { color: var(--dim); text-decoration: none; }
+.back a:hover { color: var(--amber); }
+.notice { text-align: center; color: var(--dim); padding: 4rem 0; }
+
+.credits { text-align: center; color: var(--dim); font-size: .8rem; padding: 1rem 1rem 3rem; border-top: 1px solid var(--line); max-width: 1040px; margin: 0 auto; }
+
+
+/* 手記：那天晚上 */
+.prose .diary { font-family: var(--hand); font-size: 1.12rem; line-height: 2; }
+.prose .diary p { margin: 0 0 1em; }
+.prose .diary del { color: var(--dim); }
+
+/* 手記：邊看邊記（便條紙） */
+.notepad {
+  position: relative; margin: 0 0 1.6rem; padding: 1.6rem 1.6rem 1.2rem 3.4rem;
+  color: var(--ink); font-family: var(--hand); font-size: 1.05rem;
+  background:
+    linear-gradient(90deg, transparent 2.6rem, rgba(224, 83, 63, .45) 2.6rem, rgba(224, 83, 63, .45) calc(2.6rem + 2px), transparent calc(2.6rem + 2px)),
+    repeating-linear-gradient(var(--paper) 0 calc(2.1rem - 1px), var(--rule) calc(2.1rem - 1px) 2.1rem);
+  background-position: 0 0, 0 1.25rem;
+  border-radius: 4px; transform: rotate(-.4deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .4);
+}
+.notepad::before { /* 紙膠帶 */
+  content: ""; position: absolute; top: -12px; left: 50%; width: 110px; height: 24px; transform: translateX(-50%) rotate(2deg);
+  background: rgba(242, 179, 61, .75); border-radius: 2px;
+}
+.notepad h3 { font: 700 .78rem var(--num); letter-spacing: .3em; color: var(--red); margin: 0 0 .3rem; }
+.notepad ul { list-style: none; margin: 0; padding: 0; }
+.notepad li { line-height: 2.1rem; }
+.notepad li code, .spoiler-body li code {
+  font: 600 .8rem var(--num); color: var(--paper); background: var(--ink);
+  padding: .05rem .4rem; border-radius: 3px; margin-right: .5rem; letter-spacing: .05em;
+}
+.spoiler-body ul { padding-left: 1.1rem; }
+.spoiler-body li code { color: var(--night); background: var(--red); }
+
+/* ===== 響應式 ===== */
+@media (max-width: 760px) {
+  .ticket-grid, .work-grid { grid-template-columns: 1fr; }
+  .memories ul { grid-template-columns: 1fr; }
+  .sort { margin-left: 0; }
+}
+@media (max-width: 480px) {
+  .ticket, .page-work .ticket { grid-template-columns: 1fr; }
+  .ticket::before, .ticket::after, .page-work .ticket::before, .page-work .ticket::after { display: none; }
+  .stub { min-height: 130px; border-right: 0; border-bottom: 2px dashed rgba(15, 13, 18, .8); }
+  .page-work .stub, .page-work .info { padding: 1.3rem 1.3rem; }
+  .bar-row { grid-template-columns: 4.6rem 1fr 1.4rem; }
+  .notepad { padding-left: 2.6rem; transform: none; }
+  .notepad { background-position: -.9rem 0, 0 1.25rem; }
+}

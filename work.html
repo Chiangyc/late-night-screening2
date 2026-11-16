@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>深夜放映室</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<!-- 所有作品共用這一個頁殼：work.html?w=slug。內容來自 data/works.json 與 works/<slug>.md -->
+<body class="page-work">
+  <header class="marquee">
+    <a class="logo" href="index.html"><span>深夜</span>放映室</a>
+    <nav><a href="index.html">片庫</a></nav>
+  </header>
+
+  <main class="wrap" data-work>
+    <div data-hero></div>
+
+    <section class="panel prose" data-sec="那天晚上"></section>
+    <section class="notepad" data-sec="邊看邊記"></section>
+
+    <div class="work-grid">
+      <section class="panel scores" data-scores aria-label="評分"></section>
+      <section class="panel fit">
+        <div data-sec="適合誰看"></div>
+        <div data-sec="不適合誰看"></div>
+      </section>
+    </div>
+    <section class="memories" data-sec="記憶點"></section>
+    <section data-sec="劇透區"></section>
+    <section class="panel related" data-sec="相關作品"></section>
+
+    <nav class="back"><a href="index.html">← 回片庫</a></nav>
+  </main>
+
+  <footer class="credits">深夜放映室 · 不使用任何官方海報，票根色塊就是封面</footer>
+  <script src="assets/vendor/marked.umd.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
